@@ -1,0 +1,48 @@
+default: &id001
+  grafana_enable_renderer: true
+  grafana_grafana_host: grafana
+  grafana_image: quay.io/opentelekomcloud/grafana:10.1.1
+  grafana_plugins: []
+  grafana_renderer_host: renderer
+  grafana_renderer_image: quay.io/opentelekomcloud/grafana-image-renderer:3.0.1
+  grafana_users_allow_sign_up: false
+  grafana_users_login_hint: OTC LDAP account
+  grafana_users_password_hint: OTC LDAP password
+grafana_instances:
+  production_infra:
+    default: *id001
+    fqdn: dashboard.tsi-dev.otc-service.com
+    grafana_cert: grafana
+  production_infra-eco:
+    default: *id001
+    fqdn: dashboard.eco.tsi-dev.otc-service.com
+    grafana_cert: grafana-eco
+    grafana_users_login_hint: Username
+    grafana_users_password_hint: Password
+  production_infra-mirror:
+    default: *id001
+    fqdn: dashboard.tsi-dev.otc-service.com
+    grafana_cert: grafana
+  production_stg:
+    cluster_issuer: letsencrypt-staging
+    default: *id001
+    fqdn: dashboard.apps.osinfra-stg.eco.tsi-dev.otc-service.com
+  production_vc:
+    default: *id001
+grafana_k8s_instances:
+- context: otcinfra-stg
+  grafana_instance: production_stg
+  instance: stg
+  namespace: apimon
+- context: otcinfra
+  grafana_instance: production_infra
+  instance: prod
+  namespace: apimon
+- context: otcinfra-mirror
+  grafana_instance: production_infra-mirror
+  instance: prod-mirror
+  namespace: apimon
+- context: otcinfra
+  grafana_instance: production_infra-eco
+  instance: prod-eco
+  namespace: grafana-eco
