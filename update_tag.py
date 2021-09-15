@@ -3,7 +3,7 @@ import os
 import sys
 
 import yaml
-import git
+from git import Repo
 
 
 def main():
@@ -41,7 +41,7 @@ def update_yaml_value(yaml_data, key: str, tag_value: str):
 
 
 def checkout_proposal_branch(branch_name: str, changed_file_path: str):
-    repo = git.Repo(os.getcwd())
+    repo = Repo(os.getcwd())
     repo.git.checkout("-b", branch_name)
     repo.index.add([changed_file_path])
     commit = repo.index.commit(f"test commit in {branch_name}")
