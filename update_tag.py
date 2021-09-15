@@ -77,7 +77,7 @@ def update_yaml_value(yaml_data, key: str, tag_value: str):
         key_to_change = key_to_change[k]
     # Now we need to understand if we have only new tag version
     # or we have full image url with tag in format `url:new_tag`
-    if len(tag_value.split(":")) == 2:
+    if len(tag_value.split(":")) == 1:
         url = key_to_change[keys[-1]].split(":")[0]
         new_value = f"{url}:{tag_value}"
     else:
