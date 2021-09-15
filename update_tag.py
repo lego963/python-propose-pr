@@ -22,13 +22,13 @@ def main():
     with open(args.path, "w") as f:
         yaml.safe_dump(yaml_data, f)
 
-    proposal_branch_name = get_proposal_branch_name(args.key)
+    if args.token != "":
+        proposal_branch = get_proposal_branch_name(args.key, args.value)
+        checkout_proposal_branch(proposal_branch, args.path)
 
-    checkout_proposal_branch(proposal_branch_name, args.path)
 
-
-def get_proposal_branch_name(key: str):
-    return key.split(".")[-1]
+def get_proposal_branch_name(key: str, value: str):
+    return f"{key.split('.')[-1]}-{value}"
 
 
 def update_yaml_value(yaml_data, key: str, tag_value: str):
@@ -44,7 +44,7 @@ def checkout_proposal_branch(branch_name: str, changed_file_path: str):
     repo = Repo(os.getcwd())
     repo.git.checkout("-b", branch_name)
     repo.index.add([changed_file_path])
-    commit = repo.index.commit(f"test commit in {branch_name}")
+    repo.index.commit(f"Update image version of `{changed_file_path}`")
 
 
 if __name__ == "__main__":
