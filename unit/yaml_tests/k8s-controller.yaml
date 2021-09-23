@@ -1,7 +1,7 @@
 document_hosting_instances:
   main:
     cert: docs
-    image: quay.io/opentelekomcloud/nginx-unprivileged:8.3.5
+    image: quay.io/opentelekomcloud/nginx-unprivileged:8.1.5
     not_found: The page you are requesting is not available...
     server_name: docs.otc-service.com
   stg:

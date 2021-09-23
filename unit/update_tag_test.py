@@ -26,9 +26,17 @@ class TestProposePr(unittest.TestCase):
 
     def test_change_variable(self):
         for case in self.test_suite:
-            update_tag.process_yaml(case["path"], case["key"], case["value"])
             with open(case["path"]) as f:
                 yaml_data = yaml.safe_load(f)
+
+            accessible = yaml_data
+            keys = case["key"].split(".")
+            for k in keys[:-1]:
+                accessible = accessible[k]
+            result_and_tag = accessible[keys[-1]].split(":")
+            assert result_and_tag[1] != case["value"]
+
+            update_tag.update_yaml_value(yaml_data, case["key"], case["value"])
 
             accessible = yaml_data
             keys = case["key"].split(".")

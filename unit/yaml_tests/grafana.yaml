@@ -1,7 +1,7 @@
 default: &id001
   grafana_enable_renderer: true
   grafana_grafana_host: grafana
-  grafana_image: quay.io/opentelekomcloud/grafana:10.1.1
+  grafana_image: quay.io/opentelekomcloud/grafana:10.11.1
   grafana_plugins: []
   grafana_renderer_host: renderer
   grafana_renderer_image: quay.io/opentelekomcloud/grafana-image-renderer:3.0.1
